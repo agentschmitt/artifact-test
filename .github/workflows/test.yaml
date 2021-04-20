@@ -12,11 +12,10 @@ jobs:
         mkdir -p dist
         echo "hello world" > dist/hello.text
     - run: ls -R
-    - uses: actions/upload-artifact@v2
+    - uses: actions/cache@v2
       with:
-        retention-days: 1
-        name: my-artifact
         path: dist
+        key: my-dist
 
   download:
     name: download
@@ -25,11 +24,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: ls -R
-    - uses: actions/download-artifact@v2
+    - uses: actions/cache@v2
+      id: cache
       with:
-        name: my-artifact
         path: dist
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: my-artifact        
+        key: my-dist
+    - if: steps.cache.outputs.cache-hit != 'true'
+      run: exit 1
     - run: ls -R
