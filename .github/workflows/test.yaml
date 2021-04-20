@@ -14,7 +14,7 @@ jobs:
     - run: ls -R
     - uses: actions/upload-artifact@v2
       with:
-        retention-days: 0
+        retention-days: 1
         name: my-artifact
         path: dist
 
@@ -29,4 +29,7 @@ jobs:
       with:
         name: my-artifact
         path: dist
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: my-artifact        
     - run: ls -R
