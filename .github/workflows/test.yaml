@@ -2,8 +2,8 @@ name: test
 on: push    
 
 jobs:
-  build:
-    name: build
+  upload:
+    name: upload
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -17,9 +17,10 @@ jobs:
         name: my-artifact
         path: dist
 
-  use:
-    name: get
+  download:
+    name: download
     runs-on: ubuntu-latest
+    needs: upload
     steps:
     - uses: actions/checkout@v2
     - run: ls -R
