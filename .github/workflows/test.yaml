@@ -1,0 +1,30 @@
+name: test
+on: push    
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: ls -R
+    - run: |
+        mkdir -p dist
+        echo "hello world" > dist/hello.text
+    - run: ls -R
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: dist
+
+  use:
+    name: get
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: ls -R
+    - uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
+        path: dist
+    - run: ls -R
