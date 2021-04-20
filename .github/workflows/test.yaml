@@ -13,7 +13,6 @@ jobs:
         key: my-dist-${{ github.run_number }}
     - run: |
        ls -R
-       cat dist/hello.txt
     - run: |
         mkdir -p dist
         echo "hello world $RANDOM" > dist/hello.txt
@@ -27,9 +26,6 @@ jobs:
     needs: upload
     steps:
     - uses: actions/checkout@v2
-    - run: |
-       ls -R
-       cat dist/hello.txt
     - uses: actions/cache@v2
       id: cache
       with:
